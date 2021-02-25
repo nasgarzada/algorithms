@@ -33,16 +33,14 @@ public class Main {
         insertEnd(l1, 3);
 
         var l2 = new ListNode(5);
-        insertEnd(l2, 7);
-        insertEnd(l2, 8);
-        insertEnd(l2, 9);
+        insertEnd(l2, 6);
+        insertEnd(l2, 4);
 
 
         System.out.println(main.addTwoNumbers(
-                l1, l2
+                new ListNode(0), new ListNode(0)
         ));
 
-        System.out.println(new BigInteger("1000000000000000000000000000000001").add(new BigInteger("564")));
     }
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -53,15 +51,22 @@ public class Main {
 
             int first = l1 == null ? 0 : l1.val;
             int second = l2 == null ? 0 : l2.val;
+
             int sum = first + second + carry;
+
             carry = sum / 10;
-            result = insertEnd(result, sum % 10);
+
+            if (sum != 0 || (
+                    (l1 != null && l1.val == 0) || (l2 != null && l2.val == 0)
+            )) {
+                result = insertEnd(result, sum % 10);
+            }
 
             if (l1 == null && l2 == null) {
                 is = false;
             }
-            l1 = l1==null? null: l1.next;
-            l2 = l2==null? null: l2.next;
+            l1 = l1 == null ? null : l1.next;
+            l2 = l2 == null ? null : l2.next;
 
         }
 
