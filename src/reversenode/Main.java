@@ -47,37 +47,26 @@ public class Main {
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         boolean is = true;
-        StringBuilder b1 = new StringBuilder();
-        StringBuilder b2 = new StringBuilder();
+        ListNode result = null;
+        int carry = 0;
         while (is) {
-            if (l1 != null) {
-                b1.append(l1.val);
-                l1 = l1.next;
-            }
-            if (l2 != null) {
-                b2.append(l2.val);
-                l2 = l2.next;
-            }
 
-            if ((l1 == null && l2 == null)) {
+            int first = l1 == null ? 0 : l1.val;
+            int second = l2 == null ? 0 : l2.val;
+            int sum = first + second + carry;
+            carry = sum / 10;
+            result = insertEnd(result, sum % 10);
+
+            if (l1 == null && l2 == null) {
                 is = false;
             }
+            l1 = l1==null? null: l1.next;
+            l2 = l2==null? null: l2.next;
+
         }
 
-        BigInteger sum = new BigInteger(b1.reverse().toString()).add(new BigInteger(b2.reverse().toString()));
 
-        is = true;
-        ListNode root = null;
-        while (is) {
-            BigInteger temp = sum.remainder(BigInteger.valueOf(10));
-            root = insertEnd(root, temp.intValue());
-            sum = sum.divide(BigInteger.valueOf(10));
-            if (sum.compareTo(BigInteger.valueOf(0)) == 0) {
-                is = false;
-            }
-        }
-
-        return root;
+        return result;
     }
 
     static ListNode insertEnd(ListNode head, int data) {
