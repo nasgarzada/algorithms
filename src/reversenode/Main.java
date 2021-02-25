@@ -38,7 +38,7 @@ public class Main {
 
 
         System.out.println(main.addTwoNumbers(
-                new ListNode(0), new ListNode(0)
+                l1, l2
         ));
 
     }
@@ -49,24 +49,27 @@ public class Main {
         int carry = 0;
         while (is) {
 
-            int first = l1 == null ? 0 : l1.val;
-            int second = l2 == null ? 0 : l2.val;
+            boolean isL1Null = l1 == null;
+            boolean isL2Null = l2 == null;
+
+            int first = isL1Null ? 0 : l1.val;
+            int second = isL2Null ? 0 : l2.val;
 
             int sum = first + second + carry;
 
             carry = sum / 10;
 
             if (sum != 0 || (
-                    (l1 != null && l1.val == 0) || (l2 != null && l2.val == 0)
+                    (!isL1Null && l1.val == 0) || (!isL2Null && l2.val == 0)
             )) {
                 result = insertEnd(result, sum % 10);
             }
 
-            if (l1 == null && l2 == null) {
+            if (isL1Null && isL2Null) {
                 is = false;
             }
-            l1 = l1 == null ? null : l1.next;
-            l2 = l2 == null ? null : l2.next;
+            l1 = isL1Null ? null : l1.next;
+            l2 = isL2Null ? null : l2.next;
 
         }
 
