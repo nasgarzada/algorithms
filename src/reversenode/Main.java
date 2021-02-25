@@ -1,6 +1,7 @@
 package reversenode;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.stream.IntStream;
 
 class ListNode {
@@ -45,7 +46,8 @@ public class Main {
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         boolean is = true;
-        ListNode result = null;
+        ListNode result = new ListNode(0);
+        ListNode pointer = result;
         int carry = 0;
         while (is) {
 
@@ -62,7 +64,8 @@ public class Main {
             if (sum != 0 || (
                     (!isL1Null && l1.val == 0) || (!isL2Null && l2.val == 0)
             )) {
-                result = insertEnd(result, sum % 10);
+                pointer.next = new ListNode(sum % 10);
+                pointer = pointer.next;
             }
 
             if (isL1Null && isL2Null) {
